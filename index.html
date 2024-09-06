@@ -8,7 +8,7 @@
 </head>
 <body>
     <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: false; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
-        <a-camera look-controls-enabled='false' arjs-device-orientation-controls='smoothingFactor: 0.1' gps-new-camera='positionMinAccuracy: 10; gpsMinDistance: 5; simulateLatitude: 42.860920; simulateLongitude: 74.603250; simulateAltitude: 0; gpsTimeInterval: 0;' position='0 10 0'></a-camera>
+        <a-camera look-controls-enabled='false' arjs-device-orientation-controls='smoothingFactor: 0.1' gps-new-camera='positionMinAccuracy: 100; gpsMinDistance: 5; simulateAltitude: 0; gpsTimeInterval: 0;' position='0 10 0'></a-camera>
         <a-entity material='color: red' geometry='primitive: box' gps-new-entity-place="latitude: 42.860920; longitude: 74.602250" scale="100 100 100" ></a-entity>
     </a-scene>
     <script>
