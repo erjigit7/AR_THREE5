@@ -16,6 +16,18 @@
         setInterval(() => {
             console.log(entity.object3D.position);
         }, 1000);
+
+        const earthRadius = 6378137; // радиус Земли в метрах
+
+function metersToLatLon(x, z) {
+    const lat = z / earthRadius * (180 / Math.PI);
+    const lon = x / (earthRadius * Math.cos(Math.PI * lat / 180)) * (180 / Math.PI);
+    return { latitude: lat, longitude: lon };
+}
+
+const position = { x: 8304680.028096842, z: -5290860.509570113 };
+const result = metersToLatLon(position.x, position.z);
+console.log(result); // Вывод широты и долготы
     </script>
 </body> 
 </html>
