@@ -7,10 +7,6 @@ window.onload = () => {
         if(!testEntityAdded) {
             alert(`Got first GPS position: lon ${e.detail.position.longitude} lat ${e.detail.position.latitude}`);
 
-            const entity1 = document.querySelector("[gps-new-camera]");
-            setInterval(() => {
-                console.log(entity1.object3D.position);
-            }, 1000);
             // Add a box to the north of the initial GPS position
             const entity = document.createElement("a-box");
             entity.setAttribute("scale", {
@@ -27,4 +23,10 @@ window.onload = () => {
         }
         testEntityAdded = true;
     });
+
+    
+    const entity1 = document.querySelector("[gps-new-camera]");
+    setInterval(() => {
+        console.log(entity1.object3D.position);
+    }, 1000);
 };
