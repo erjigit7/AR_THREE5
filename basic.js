@@ -5,7 +5,7 @@ window.onload = () => {
 
     el.addEventListener("gps-camera-update-position", async(e) => {
         if(!downloaded) {
-            const west = e.detail.position.longitude - 0.01,
+            const west = e.detail.position.longitude - 0.011,
                   east = e.detail.position.longitude + 0.01,
                   south = e.detail.position.latitude - 0.01;
                   north = e.detail.position.latitude + 0.01;
