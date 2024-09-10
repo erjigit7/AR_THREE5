@@ -5,28 +5,29 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
     <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe-ar.js"></script>
 </head>
 <body>
-    <a-scene 
-        vr-mode-ui='enabled: false' 
-        arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' 
-        renderer='antialias: true; alpha: true'
-    >
-        <!-- Asset management system -->
-        <a-assets>
-            <!-- Preload the GLB model -->
-            <a-asset-item id="glbModel" src="building_03.glb"></a-asset-item>
-        </a-assets>
+    <a-scene
+    vr-mode-ui="enabled: false"
+    renderer="logarithmicDepthBuffer: true; antialias: true; alpha: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; patternRatio: 0.9;"
+>
+    <!-- Asset management system -->
+    <a-assets>
+        <a-asset-item id="glbModel" src="building_03.glb"></a-asset-item>
+    </a-assets>
 
-        <!-- Camera with GPS and orientation controls -->
-        <a-camera gps-new-camera='gpsMinDistance: 5; ' ></a-camera>
+    <!-- Camera -->
+    <a-camera position="0 0 0" look-controls-enabled="false"></a-camera>
 
-        <!-- Replace box with GLB model -->
-        <a-entity 
-            gps-new-entity-place="latitude: 42.860574; longitude: 74.602266" 
-            scale="10 10 10" 
-            gltf-model="#glbModel">
-        </a-entity>
-    </a-scene>
+    <!-- Replace box with GLB model -->
+    <a-entity
+        gps-new-entity-place="latitude: 42.860574; longitude: 74.602266"
+        scale="10 10 10"
+        gltf-model="#glbModel">
+    </a-entity>
+</a-scene>
 </body>
 </html>
