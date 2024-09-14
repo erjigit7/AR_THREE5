@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AR.js A-Frame Location-based</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+<title>Location-based AR.js with three.js</title>
+<script type='module' src='basic.js'></script>
 </head>
 <body>
-    <a-scene 
-        vr-mode-ui='enabled: false' 
-        arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' 
-        renderer='antialias: true; alpha: true'
-    >
-        <a-assets>
-            <a-asset-item id="glbModel" src="01.glb"></a-asset-item>
-        </a-assets>
-
-        <a-camera gps-new-camera='positionMinAccuracy: 100; gpsMinDistance: 5; simulateLatitude: 51.049; simulateLongitude: -0.723; simulateAltitude: 0; gpsTimeInterval: 0;' position='0 10 0'></a-camera>
-        
-        <a-entity 
-            gps-new-entity-place="latitude: 51.05; longitude: -0.72 "
-            scale="1 1 1" 
-            gltf-model="#glbModel">
-        </a-entity>
-    </a-scene>
+<canvas id='canvas1' style='background-color: black; width: 100%; height: 100%'></canvas>
 </body>
 </html>

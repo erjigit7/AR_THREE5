@@ -1,50 +1,37 @@
-window.onload = () => {
-    let downloaded = false;
+import * as THREE from 'three';
+import * as THREEx from './node_modules/@ar-js-org/ar.js/three.js/build/ar-threex-location-only.js';
 
-    const el = document.querySelector("[gps-new-camera]");
+function main() {
+    const canvas = document.getElementById('canvas1');
 
-    el.addEventListener("gps-camera-update-position", async(e) => {
-        if(!downloaded) {
-            const west = e.detail.position.longitude - 0.05,
-                  east = e.detail.position.longitude + 0.05,
-                  south = e.detail.position.latitude - 0.05;
-                  north = e.detail.position.latitude + 0.05;
-            console.log(`${west} ${south} ${east} ${north}`);
-            const response = await fetch(`https://hikar.org/webapp/map?bbox=${west},${south},${east},${north}&layers=poi&outProj=4326`);
-            const pois = await response.json();
-            pois.features.forEach ( feature => {
-                const compoundEntity = document.createElement("a-entity");
-                compoundEntity.setAttribute('gps-new-entity-place', {
-                    latitude: feature.geometry.coordinates[1],
-                    longitude: feature.geometry.coordinates[0]
-                });
-                const box = document.createElement("a-box");
-                box.setAttribute("scale", {
-                    x: 20,
-                    y: 20,
-                    z: 20
-                });
-                box.setAttribute('material', { color: 'red' } );
-                box.setAttribute("position", {
-                    x : 0,
-                    y : 20,
-                    z: 0
-                } );
-                const text = document.createElement("a-text");
-                const textScale = 100;
-                text.setAttribute("look-at", "[gps-new-camera]");
-                text.setAttribute("scale", {
-                    x: textScale,
-                    y: textScale,
-                    z: textScale
-                });
-                text.setAttribute("value", feature.properties.name);
-                text.setAttribute("align", "center");
-                compoundEntity.appendChild(box);
-                compoundEntity.appendChild(text);
-                document.querySelector("a-scene").appendChild(compoundEntity);
-            });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, 1.33, 0.1, 10000);
+    const renderer = new THREE.WebGLRenderer({canvas: canvas});
+
+    const arjs = new THREEx.LocationBased(scene, camera);
+    const cam = new THREEx.WebcamRenderer(renderer);
+
+    const geom = new THREE.BoxGeometry(20, 20, 20);
+    const mtl = new THREE.MeshBasicMaterial({color: 0xff0000});
+    const box = new THREE.Mesh(geom, mtl);
+    arjs.add(box, -0.72, 51.051); 
+
+
+    arjs.fakeGps(-0.72, 51.05);
+
+    requestAnimationFrame(render);
+
+    function render() {
+        if(canvas.width != canvas.clientWidth || canvas.height != canvas.clientHeight) {
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+            const aspect = canvas.clientWidth/canvas.clientHeight;
+            camera.aspect = aspect;
+            camera.updateProjectionMatrix();
         }
-        downloaded = true;
-    });
-};
+        cam.update();
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+    }
+}
+
+main();
